@@ -13,5 +13,6 @@ public interface UserServiceInterface extends ServiceInterface<User> {
 
     List<User> findByCompanyId(Long companyId);
 
+	Optional<User> findByEmail(String email);
 
 }

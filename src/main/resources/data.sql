@@ -1,0 +1,1 @@
+INSERT INTO users VALUES (1, '2020-07-31 14:23:10', 'user_01@email.com', 'Usuario 001', 'user1', '1234');

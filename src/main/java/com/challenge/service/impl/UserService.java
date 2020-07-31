@@ -4,6 +4,10 @@ import com.challenge.entity.User;
 import com.challenge.repository.UserRepository;
 import com.challenge.service.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserServiceInterface {
+public class UserService implements UserServiceInterface, UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -30,4 +34,14 @@ public class UserService implements UserServiceInterface {
         return userRepository.findByCandidatesIdCompanyId(companyId);
     }
 
+    
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByEmail(username).get();
+	}
 }
