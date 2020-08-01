@@ -22,6 +22,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userService;
 
+	private static final String[] AUTH_WHITELIST = {
+	        "/swagger-resources/**",
+	        "/swagger-resources/***",
+	        "/configuration/security",
+	        "/swagger-ui.html",
+	        "/swagger-ui/**",
+	        "/swagger-ui/**",
+	        "/v2/api-docs",
+	        "/v3/api-docs",
+	        "/v3/api-docs/**",
+	        "/webjars/**",
+	        "/user"
+	};
+	
+	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -30,9 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/***", "/configuration/security",
-				"/swagger-ui;html", "/webjars/**", "/user");
+		web.ignoring().antMatchers(AUTH_WHITELIST);
 	}
+	
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
